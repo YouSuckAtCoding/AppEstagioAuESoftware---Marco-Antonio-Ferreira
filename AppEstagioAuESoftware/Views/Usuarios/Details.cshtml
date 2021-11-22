@@ -1,0 +1,290 @@
+﻿
+@model IEnumerable<Domain.Models.RegistrodeCidades>
+
+
+@{
+    ViewData["Title"] = "Registros de Usuários Por Cidade";
+}
+
+<h1>Nº de Contatos por Cidade</h1>
+
+@{
+    int TodosRegistrados = 0;
+    int mulheresregistradas = 0;
+    int homensregistrados = 0;
+    int ncidadesregistradas = 0;
+}
+
+@*inicialização de variaveis*@ 
+@foreach (var item in Model)
+{
+    TodosRegistrados = TodosRegistrados + item.Total;
+    mulheresregistradas = mulheresregistradas + item.MulheresTotal;
+    homensregistrados = homensregistrados + item.HomensTotal;
+    ncidadesregistradas = ncidadesregistradas + 1;
+
+
+}
+
+@*Barra de pesquisa por cidade*@
+<form asp-action="Details">
+
+    <label>Pesquisar Cidade</label>
+    <input type="text" name="filtro" />
+    <input type="submit" value="Pesquisar Cidade" class="btn btn-primary" />
+</form>
+<br />
+@*Botões no topo da pagina*@
+<div>
+    <a asp-action="Create">Registrar Novo Usuário</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a asp-action="Index">Lista de Usuários</a>
+
+</div>
+
+@*Tabela referente a todos os usuários registrados*@
+@foreach (var item in Model)
+{
+    if (item.Filtro != null)
+    {
+        break;
+    }
+
+    <table class="table" />
+    <thead>
+        <tr>
+            <th >
+                <label>Contatos Registrados</label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomensRegistrados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MulheresRegistrados)
+            </th>
+            <th style="padding-right: 200px">
+                @Html.DisplayNameFor(model => model.TodosRegistrados)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+
+        <td></td>
+        <td>
+            @{
+                item.HomensRegistrados = homensregistrados;
+
+            }
+            @Html.DisplayFor(model => item.HomensRegistrados)
+        </td>
+        <td>
+            @{
+                item.MulheresRegistrados = mulheresregistradas;
+                    
+
+            }
+            @Html.DisplayFor(model => item.MulheresRegistrados)
+        </td>
+
+        <td>
+            @{
+                    
+                item.TodosRegistrados = TodosRegistrados;
+
+            }
+            @Html.DisplayFor(model => item.TodosRegistrados)
+        </td>
+        
+        
+
+    </tr>
+    
+    </tbody>
+    
+    break;
+}
+
+
+
+@*Tabela referente a cada cidade registrada*@
+
+@{  int contador = 0;
+
+    foreach (var item in Model)
+    {
+
+
+        if (item.Filtro == null)
+        {
+            
+            <table class="table">
+
+                <thead>
+
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelitem => item.Cidade)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HomensMes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MulheresMes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalMes)
+                    </th>
+
+
+
+                </tr>
+                </thead>
+                <tbody>
+                @for (int i = 0; i < 12; i++)
+                {
+                    if (item.TotalMes[i] != 0)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Meses[i])
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HomensMes[i])
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MulheresMes[i])
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalMes[i])
+                            </td>
+
+                        </tr>
+                    }
+
+                }
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomensTotal)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MulheresTotal)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+
+
+                </tr>
+
+                </tbody>
+
+            </table>
+            <br/>
+        }
+        else if (item.Filtro != null)
+        {
+
+
+            if (item.Cidade == item.Filtro)
+            {
+                <table class="table">
+
+                    <thead>
+
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelitem => item.Cidade)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.HomensMes)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MulheresMes)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalMes)
+                        </th>
+
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for (int i = 0; i < 12; i++)
+                    {
+                        if (item.TotalMes[i] != 0)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Meses[i])
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HomensMes[i])
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MulheresMes[i])
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalMes[i])
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    <tr>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Total)
+                        </th>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HomensTotal)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MulheresTotal)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+                break;
+            }
+            else if (item.Filtro == "Nao Existe")
+            {
+                contador++;
+                if (contador == Model.Count())
+                {
+                        <br/>
+                        <a style="padding-left: 400px"> Não existem registros desta cidade.</a>
+                        
+                    break;
+                }
+            }
+
+
+
+
+        }
+
+
+
+    }
+
+
+
+}

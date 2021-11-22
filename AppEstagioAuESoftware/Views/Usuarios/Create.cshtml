@@ -1,0 +1,60 @@
+﻿@model Domain.Models.Usuario
+
+@{
+    ViewData["Title"] = "Registrar Novo Usuário";
+}
+
+<h1>Create</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NOME" class="control-label"></label>
+                <input asp-for="NOME" class="form-control" />
+                <span asp-validation-for="NOME" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SEXO" class="control-label"></label>
+
+                <br /><label>Feminino</label>
+                <input type="radio" name="SEXO" value="Feminino" /><br />
+                <label>Masculino</label>
+                <input type="radio" name="SEXO" value="Masculino" />
+                <span asp-validation-for="SEXO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DATA" class="control-label"></label>
+                <input asp-for="DATA" class="form-control" />
+                <span asp-validation-for="DATA" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CIDADE" class="control-label"></label>
+                <input asp-for="CIDADE" class="form-control" />
+                <span asp-validation-for="CIDADE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CODCONTATO" class="control-label"></label>
+                <input asp-for="CODCONTATO" class="form-control" />
+                <span asp-validation-for="CODCONTATO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input type="submit" value="Contar Nºde Usuários por Cidade" class="btn btn-primary"  />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Lista de Usuários</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

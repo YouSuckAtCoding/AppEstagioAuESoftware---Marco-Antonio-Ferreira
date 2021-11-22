@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Domain.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Registro de Usuários";
+}
+
+<h1>Lista de Usuários Registrados</h1>
+
+<p>
+    <a asp-action="Create">Registrar Novo Usuário</a>&nbsp;&nbsp;&nbsp;
+
+    <a asp-action="Details">Nº de Contatos por Cidade</a>
+</p>
+<form asp-action="Index">
+    <div class="form-group">
+        <a style="font-size: 40px">Ordenar por:</a><br />
+        <label>Nome</label>
+        <input type="radio" name="filtro" value="NOME" />&nbsp;&nbsp;
+        <label>Sexo</label>
+        <input type="radio" name="filtro" value="SEXO" />&nbsp;&nbsp;
+        <label>Data</label>
+        <input type="radio" name="filtro" value="DATA" />&nbsp;&nbsp;
+        <label>Cidade</label>
+        <input type="radio" name="filtro" value="CIDADE" />&nbsp;&nbsp;
+        <label>Código de Contato</label>
+        <input type="radio" name="filtro" value="CODCONTATO" />&nbsp;&nbsp;
+
+
+        <input type="submit" value="Filtrar" class="btn btn-primary" />
+    </div>
+</form>
+<form>
+    
+    <div class="form-group">
+        <label>Pesquisar Cadastrado</label>
+        <input type="text" name="pesquisa" />
+        <input type="submit" value="Pesquisar" class="btn btn-primary" />
+
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NOME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SEXO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DATA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CIDADE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CODCONTATO)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SEXO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DATA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CIDADE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CODCONTATO)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                
+                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
